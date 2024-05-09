@@ -1,5 +1,5 @@
 var elementos = [
-  { nombre: "pichichus 1", precio: 10 },
+  { nombre: "pichichus 1", precio: 10 , stock :5},
   { nombre: "Producto 2", precio: 20 },
   { nombre: "Producto 3", precio: 30 },
   { nombre: "Producto 4", precio: 10 },
@@ -29,22 +29,58 @@ var elementos = [
 var listaProductos = document.getElementById("listaProductos");
 var buscarInput = document.getElementById("buscar");
 
-// Función para mostrar los productos en la lista
+
+var listaProductos = document.getElementById("listaProductos");
+
+var listaProductos = document.getElementById("listaProductos");
+
 function mostrarProductos(productos) {
-  // Limpiar la lista de productos
-  listaProductos.innerHTML = "";
+    // Limpiar la lista de productos
+    listaProductos.innerHTML = "";
 
-  // Iterar sobre los productos y agregarlos a la lista
-  productos.forEach(function(producto, index) {
-    var listItem = document.createElement("li");
-    listItem.classList.add("list-group-item");
-    listItem.textContent = producto.nombre + " - $" + producto.precio;
-    listaProductos.appendChild(listItem);
-  });
+    // Iterar sobre los productos y agregarlos a la lista
+    productos.forEach(function(producto) {
+        var listItem = document.createElement("li");
+        listItem.classList.add("list-group-item");
 
-  // Mostrar la lista de productos
-  listaProductos.style.display = "block";
+        // Texto del elemento de la lista con el indicador de stock
+        var textoProducto = producto.nombre + " - $" + producto.precio;
+        if (producto.stock > 0) {
+            textoProducto += " - <strong>Con stock</strong>";
+            listItem.classList.add("producto-disponible");
+        } else {
+            textoProducto += " - <strong>Sin stock</strong>";
+            listItem.classList.add("producto-agotado");
+        }
+        listItem.innerHTML = textoProducto;
+
+        listaProductos.appendChild(listItem);
+    });
+
+    // Mostrar la lista de productos
+    listaProductos.style.display = "block";
 }
+
+// Mostrar productos al cargar la página
+mostrarProductos(elementos);
+
+// Función para mostrar los productos en la lista
+// function mostrarProductos(productos) {
+//   // Limpiar la lista de productos
+//   listaProductos.innerHTML = "";
+
+//   // Iterar sobre los productos y agregarlos a la lista
+//   productos.forEach(function(producto, index) {
+//     var listItem = document.createElement("li");
+//     listItem.classList.add("list-group-item");
+//     listItem.textContent = producto.nombre + " - $" + producto.precio;
+//     listaProductos.appendChild(listItem);
+//   });
+
+//   // Mostrar la lista de productos
+//   listaProductos.style.display = "block";
+// }
+
 
 // Función para buscar un producto
 function buscarProducto() {

@@ -61,5 +61,30 @@ function buscarProducto() {
   }
 }
 
+function agregarNuevoProducto() {
+  var nombreNuevoProducto = document.getElementById("nombreNuevoProducto").value;
+  var precioNuevoProducto = document.getElementById("precioNuevoProducto").value;
+
+  // Validar que se haya ingresado un nombre y un precio
+  if (nombreNuevoProducto.trim() !== "" && !isNaN(precioNuevoProducto) && parseFloat(precioNuevoProducto) >= 0) {
+    // Agregar el nuevo producto a la lista de productos
+    elementos.push({ nombre: nombreNuevoProducto, precio: parseFloat(precioNuevoProducto) });
+    
+    // Actualizar la lista de productos
+    mostrarProductos(elementos);
+
+    // Limpiar los campos del formulario del modal
+    document.getElementById("nombreNuevoProducto").value = "";
+    document.getElementById("precioNuevoProducto").value = "";
+
+    // Cerrar el modal
+    var modal = new bootstrap.Modal(document.getElementById("modalAgregarProducto"));
+    modal.hide();
+  } else {
+    // Mostrar un mensaje de error si los campos no son válidos
+    alert("Por favor, ingrese un nombre válido y un precio numérico mayor o igual a 0.");
+  }
+}
+
 // Detectar cambios en el campo de búsqueda para buscar automáticamente
 buscarInput.addEventListener("input", buscarProducto);

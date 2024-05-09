@@ -20,10 +20,18 @@
     background-color: #555; /* Color del thumb al pasar el mouse sobre él */
 }
 
-.producto-disponible {
-    background-color: #45b306; /* Color de fondo para productos disponibles */
+/* Estilos para el mensaje de "Con stock" */
+.con-stock {
+    background-color: #77c577; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    padding: 3px 6px; /* Espaciado interno */
+    border-radius: 3px; /* Radio de borde */
 }
 
-.producto-agotado {
-    background-color: #c70d1d; /* Color de fondo para productos agotados */
+/* Estilos para el mensaje de "Sin stock" */
+.sin-stock {
+    background-color: #da5c5c; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    padding: 3px 6px; /* Espaciado interno */
+    border-radius: 3px; /* Radio de borde */
 }

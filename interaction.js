@@ -34,35 +34,52 @@ var listaProductos = document.getElementById("listaProductos");
 
 var listaProductos = document.getElementById("listaProductos");
 
+// Función para mostrar los productos en la lista
 function mostrarProductos(productos) {
-    // Limpiar la lista de productos
-    listaProductos.innerHTML = "";
+  // Limpiar la lista de productos
+  listaProductos.innerHTML = "";
 
-    // Iterar sobre los productos y agregarlos a la lista
-    productos.forEach(function(producto) {
-        var listItem = document.createElement("li");
-        listItem.classList.add("list-group-item");
+  // Iterar sobre los productos y agregarlos a la lista
+  productos.forEach(function(producto) {
+      var listItem = document.createElement("li");
+      listItem.classList.add("list-group-item");
 
-        // Texto del elemento de la lista con el indicador de stock
-        var textoProducto = producto.nombre + " - $" + producto.precio;
-        if (producto.stock > 0) {
-            textoProducto += " - <strong>Con stock</strong>";
-            listItem.classList.add("producto-disponible");
-        } else {
-            textoProducto += " - <strong>Sin stock</strong>";
-            listItem.classList.add("producto-agotado");
-        }
-        listItem.innerHTML = textoProducto;
+      // Texto del elemento de la lista con el indicador de stock y botón de venta
+      var textoProducto = producto.nombre + " - $" + producto.precio;
+      if (producto.stock > 0) {
+          textoProducto += " - <span class='con-stock'>Con stock</span>" + producto.stock;
+          textoProducto += ' <button class="btn btn-primary btn-sm" onclick="venderProducto(\'' + producto.nombre + '\')">Vender</button>';
+          listItem.classList.add("producto-disponible");
+      } else {
+        textoProducto += " - <span class='sin-stock'>Sin stock</span>";
+          // textoProducto += " - <strong>Sin stock</strong>";
+          listItem.classList.add("producto-agotado");
+      }
+      listItem.innerHTML = textoProducto;
 
-        listaProductos.appendChild(listItem);
-    });
+      listaProductos.appendChild(listItem);
+  });
 
-    // Mostrar la lista de productos
-    listaProductos.style.display = "block";
+  // Mostrar la lista de productos
+  listaProductos.style.display = "block";
+}
+
+// Función para vender un producto
+function venderProducto(nombreProducto) {
+  var producto = elementos.find(function(item) {
+      return item.nombre === nombreProducto;
+  });
+
+  if (producto && producto.stock > 0) {
+      producto.stock--;
+      // Actualizar la lista de productos después de la venta
+      mostrarProductos(elementos);
+  }
 }
 
 // Mostrar productos al cargar la página
 mostrarProductos(elementos);
+
 
 // Función para mostrar los productos en la lista
 // function mostrarProductos(productos) {

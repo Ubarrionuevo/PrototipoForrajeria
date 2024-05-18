@@ -1,3 +1,4 @@
+
 #listaProductos {
     max-height: 200px; /* Altura máxima de la lista */
     overflow-y: auto; /* Agregar scroll vertical cuando sea necesario */

@@ -1,7 +1,7 @@
 var elementos = [
   { nombre: "pichichus 1", precio: 10 , stock :5},
-  { nombre: "Producto 2", precio: 20 },
-  { nombre: "Producto 3", precio: 30 },
+  { nombre: "Producto 2", precio: 20 ,stock :1},
+  { nombre: "Producto 3", precio: 30 ,stock :1},
   { nombre: "Producto 4", precio: 10 },
   { nombre: "Producto 5", precio: 20 },
   { nombre: "Producto 6", precio: 30 },
@@ -41,28 +41,33 @@ function mostrarProductos(productos) {
 
   // Iterar sobre los productos y agregarlos a la lista
   productos.forEach(function(producto) {
-      var listItem = document.createElement("li");
-      listItem.classList.add("list-group-item");
+    var listItem = document.createElement("li");
+    listItem.classList.add("list-group-item");
 
-      // Texto del elemento de la lista con el indicador de stock y botón de venta
-      var textoProducto = producto.nombre + " - $" + producto.precio;
-      if (producto.stock > 0) {
-          textoProducto += " - <span class='con-stock'>Con stock</span>" + producto.stock;
-          textoProducto += ' <button class="btn btn-primary btn-sm" onclick="venderProducto(\'' + producto.nombre + '\')">Vender</button>';
-          listItem.classList.add("producto-disponible");
-      } else {
-        textoProducto += " - <span class='sin-stock'>Sin stock</span>";
-          // textoProducto += " - <strong>Sin stock</strong>";
-          listItem.classList.add("producto-agotado");
-      }
-      listItem.innerHTML = textoProducto;
+    // Texto del elemento de la lista con el indicador de stock y botón de venta
+    var textoProducto = producto.stock + " - " + producto.nombre + " - $" + producto.precio + " - ";
+    if (producto.stock > 0) {
+      textoProducto += ' <button class="btn btn-primary btn-sm" onclick="venderProducto(\'' + producto.nombre + '\')">Vender</button>';
+      textoProducto += ' <button class="btn btn-danger btn-sm" onclick="eliminarProducto(\'' + producto.nombre + '\')">Eliminar</button>';
+      textoProducto += ' <button class="btn btn-danger btn-sm" onclick="editarproducto(\'' + producto.nombre + '\')">Editar</button>';
+      textoProducto += ' <button class="btn btn-danger btn-sm" onclick="editarproducto(\'' + producto.nombre + '\')">Ingreso</button>'; // Botón de eliminar
+      // Botón de eliminar
+      // Botón de eliminar
+      listItem.classList.add("producto-disponible");
+    } else {
+      textoProducto += " - <span class='sin-stock'>Sin stock</span>";
+      // textoProducto += " - <strong>Sin stock</strong>";
+      listItem.classList.add("producto-agotado");
+    }
+    listItem.innerHTML = textoProducto;
 
-      listaProductos.appendChild(listItem);
+    listaProductos.appendChild(listItem);
   });
 
   // Mostrar la lista de productos
   listaProductos.style.display = "block";
 }
+
 
 // Función para vender un producto
 function venderProducto(nombreProducto) {
@@ -80,23 +85,13 @@ function venderProducto(nombreProducto) {
 // Mostrar productos al cargar la página
 mostrarProductos(elementos);
 
+// Ocultar la lista de productos al cargar la página
+listaProductos.style.display = "none";
 
-// Función para mostrar los productos en la lista
-// function mostrarProductos(productos) {
-//   // Limpiar la lista de productos
-//   listaProductos.innerHTML = "";
-
-//   // Iterar sobre los productos y agregarlos a la lista
-//   productos.forEach(function(producto, index) {
-//     var listItem = document.createElement("li");
-//     listItem.classList.add("list-group-item");
-//     listItem.textContent = producto.nombre + " - $" + producto.precio;
-//     listaProductos.appendChild(listItem);
-//   });
-
-//   // Mostrar la lista de productos
-//   listaProductos.style.display = "block";
-// }
+// Mostrar la lista de productos cuando se haga clic en el campo de búsqueda
+buscarInput.addEventListener("click", function() {
+  listaProductos.style.display = "block";
+});
 
 
 // Función para buscar un producto
